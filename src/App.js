@@ -22,14 +22,21 @@ function App() {
   const addContact = (newContact) => {
     axios
       .post(
-        `http://localhost:5000/api/v1/contactInfo/create-contactInfo`,
+        "http://localhost:5000/api/v1/contactInfo/create-contactInfo",
         newContact
       )
       .then((response) => {
-        console.log("Contact added:", response.data);
-        setContacts([...contacts, response.data.data]); // Add the new contact to the list
+        setContacts([...contacts, response.data.data]);
+        alert("Contact added successfully!"); // Success alert
       })
-      .catch((error) => console.error("Error adding contact:", error));
+      .catch((error) => {
+        // Check for unique email error
+        if (error.response && error.response.status === 400) {
+          alert(error.response.data.message); // Show backend error message
+        } else {
+          alert("Email must be unique");
+        }
+      });
   };
 
   // Update contact
