@@ -13,7 +13,7 @@ function App() {
       .get(`http://localhost:5000/api/v1/contactInfo`)
       .then((response) => {
         console.log("Contacts fetched:", response.data.data);
-        setContacts(response.data.data); // Ensure the response is an array
+        setContacts(response.data.data);
       })
       .catch((error) => console.error("Error fetching contacts:", error));
   }, []);
@@ -27,12 +27,12 @@ function App() {
       )
       .then((response) => {
         setContacts([...contacts, response.data.data]);
-        alert("Contact added successfully!"); // Success alert
+        alert("Contact added successfully!");
       })
       .catch((error) => {
         // Check for unique email error
         if (error.response && error.response.status === 400) {
-          alert(error.response.data.message); // Show backend error message
+          alert(error.response.data.message);
         } else {
           alert("Email must be unique");
         }
